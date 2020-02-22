@@ -1,0 +1,242 @@
+;Scenario market
+;sells and buys but does not advance
+
+; ///////////////////////// FEUDAL
+
+(defrule
+	(current-age == feudal-age)
+	(gold-amount >= 500)
+	(wood-amount <= 100)
+	(commodity-buying-price wood <= 100)
+	(can-buy-commodity wood)
+=>
+	(chat-local-to-self "Wood panic")
+	(buy-commodity wood)
+)
+
+(defrule
+	(current-age == feudal-age)
+	(gold-amount >= 500)
+	(food-amount <= 100)
+	(commodity-buying-price food <= 100)
+	(can-buy-commodity food)
+=>
+	(chat-local-to-self "Food panic")
+	(buy-commodity food)
+)
+
+(defrule
+	(current-age == feudal-age)
+	(gold-amount >= 600)
+	(stone-amount <= 100)
+	(commodity-buying-price stone <= 200)
+	(can-buy-commodity stone)
+=>
+	(chat-local-to-self "need stone")
+	(buy-commodity stone)
+)
+
+(defrule
+	(current-age == feudal-age)
+	(wood-amount >= 500)
+	(or
+		(gold-amount < 100)
+		(food-amount < 100)
+	)
+	(commodity-selling-price wood >= 50)
+	(can-sell-commodity wood)
+=>
+	(chat-local-to-self "Gold panic; sell wood")
+	(sell-commodity wood)
+)
+
+(defrule
+	(current-age == feudal-age)
+	(food-amount >= 1000)
+	(or
+		(gold-amount < 100)
+		(wood-amount < 100)
+	)
+	(can-sell-commodity food)
+=>
+	(chat-local-to-self "excess food")
+	(sell-commodity food)
+)
+
+(defrule
+	(current-age == feudal-age)
+	(stone-amount >= 1000)
+	(or
+		(gold-amount < 100)
+		(wood-amount < 100)
+	)
+	(can-sell-commodity stone)
+=>
+	(chat-local-to-self "excess stone")
+	(sell-commodity stone)
+)
+
+;****************************CASTLE
+(defrule
+	(current-age == castle-age)
+	(gold-amount >= 1000)
+	(wood-amount <= 200)
+	(commodity-buying-price wood <= 100)
+	(can-buy-commodity wood)
+=>
+	(chat-local-to-self "Wood panic")
+	(buy-commodity wood)
+)
+
+(defrule
+	(current-age == castle-age)
+	(gold-amount >= 500)
+	(wood-amount <= 100)
+	(can-buy-commodity wood)
+=>
+	(chat-local-to-self "Wood panic")
+	(buy-commodity wood)
+)
+
+(defrule
+	(current-age == castle-age)
+	(gold-amount >= 1000)
+	(food-amount <= 200)
+	(commodity-buying-price food <= 100)
+	(can-buy-commodity food)
+=>
+	(chat-local-to-self "Food panic")
+	(buy-commodity food)
+)
+
+(defrule
+	(current-age == castle-age)
+	(gold-amount >= 500)
+	(food-amount <= 100)
+	(can-buy-commodity food)
+=>
+	(chat-local-to-self "Food panic")
+	(buy-commodity food)
+)
+
+(defrule
+	(current-age == castle-age)
+	(gold-amount >= 1200)
+	(stone-amount <= 200)
+	(commodity-buying-price stone <= 200)
+	(can-buy-commodity stone)
+=>
+	(chat-local-to-self "need stone")
+	(buy-commodity stone)
+)
+
+(defrule
+	(current-age == castle-age)
+	(wood-amount >= 1000)
+	(or
+		(gold-amount < 200)
+		(food-amount < 200)
+	)
+	(commodity-selling-price wood >= 25)
+	(can-sell-commodity wood)
+=>
+	(chat-local-to-self "Gold panic; sell wood")
+	(sell-commodity wood)
+)
+
+(defrule
+	(current-age == castle-age)
+	(food-amount >= 1200)
+	(or
+		(gold-amount < 200)
+		(wood-amount < 200)
+	)
+	(can-sell-commodity food)
+=>
+	(chat-local-to-self "excess food")
+	(sell-commodity food)
+)
+
+(defrule
+	(current-age == castle-age)
+	(stone-amount >= 1000)
+	(or
+		(gold-amount < 200)
+		(wood-amount < 200)
+	)
+	(can-sell-commodity stone)
+=>
+	(chat-local-to-self "excess stone")
+	(sell-commodity stone)
+)
+
+
+;****************************
+;imperial age
+
+(defrule
+	(gold-amount >= 1500)
+	(wood-amount <= 200)
+	(can-buy-commodity wood)
+=>
+	(chat-local-to-self "Wood panic")
+	(buy-commodity wood)
+)
+
+(defrule
+	(gold-amount >= 1500)
+	(food-amount <= 200)
+	(can-buy-commodity food)
+=>
+	(chat-local-to-self "Food panic")
+	(buy-commodity food)
+)
+
+(defrule
+	(gold-amount >= 1500)
+	(stone-amount <= 200)
+	(can-buy-commodity stone)
+=>
+	(chat-local-to-self "need stone")
+	(buy-commodity stone)
+)
+
+(defrule
+	(wood-amount >= 1500)
+	(or
+		(gold-amount < 200)
+		(food-amount < 200)
+	)
+	(can-sell-commodity wood)
+=>
+	(chat-local-to-self "Gold panic; sell wood")
+	(sell-commodity wood)
+)
+
+(defrule
+	(food-amount >= 1500)
+	(or
+		(gold-amount < 200)
+		(wood-amount < 200)
+	)
+	(can-sell-commodity food)
+=>
+	(chat-local-to-self "excess food")
+	(sell-commodity food)
+)
+
+(defrule
+	(stone-amount >= 1500)
+	(or
+		(or
+			(gold-amount < 200)
+			(wood-amount < 200)
+		)
+		(food-amount < 200)
+	)
+	(can-sell-commodity stone)
+=>
+	(chat-local-to-self "excess stone")
+	(sell-commodity stone)
+)
+

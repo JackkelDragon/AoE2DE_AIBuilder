@@ -1,0 +1,54 @@
+(defrule
+	(difficulty equal easiest)
+=>
+	(set-strategic-number sn-consecutive-idle-unit-limit 60)
+	(set-strategic-number sn-initial-attack-delay-type 2)
+	(set-strategic-number sn-initial-attack-delay 1200)
+	(set-strategic-number sn-easiest-reaction-percentage 20)
+	(set-difficulty-parameter ability-to-maintain-distance 100)
+	(set-difficulty-parameter ability-to-dodge-missiles 100)
+	(disable-self)
+)
+
+(defrule
+	(difficulty equal easy)
+=>
+	(set-strategic-number sn-consecutive-idle-unit-limit 20)
+	(set-strategic-number sn-initial-attack-delay-type 2)
+	(set-strategic-number sn-initial-attack-delay 600)
+	(set-strategic-number sn-easier-reaction-percentage 20)
+	(set-difficulty-parameter ability-to-maintain-distance 90)
+	(set-difficulty-parameter ability-to-dodge-missiles 90)
+	(disable-self)
+)
+
+(defrule
+	(difficulty equal moderate)
+=>
+	(set-strategic-number sn-consecutive-idle-unit-limit 5)
+	(set-strategic-number sn-initial-attack-delay-type 1)
+	(set-difficulty-parameter ability-to-maintain-distance 50)
+	(set-difficulty-parameter ability-to-dodge-missiles 50)
+	(disable-self)
+)
+
+(defrule
+	(difficulty equal hard)
+=>
+	(set-strategic-number sn-consecutive-idle-unit-limit 1)
+	(set-strategic-number sn-initial-attack-delay-type 0)
+	(set-difficulty-parameter ability-to-maintain-distance 1)
+	(set-difficulty-parameter ability-to-dodge-missiles 1)
+	(disable-self)
+)
+
+(defrule
+	(difficulty equal hardest)
+=>
+	(set-strategic-number sn-consecutive-idle-unit-limit 1)
+	(set-strategic-number sn-initial-attack-delay-type 0)
+	(set-difficulty-parameter ability-to-maintain-distance 1)
+	(set-difficulty-parameter ability-to-dodge-missiles 1)
+	(disable-self)
+)
+

@@ -1,0 +1,137 @@
+; Scenario resign
+; once goal 1 19 triggered, stuff deleted
+; then goal 1 9 triggers resignation
+
+; *****************************
+;delete all units
+
+(defrule
+	(goal 1 19)
+=>
+	(enable-timer 12 60)
+	(disable-self)
+)
+
+(defrule
+        (goal 1 19)
+        (players-population any-ally > 10)
+=>
+        (release-escrow wood)
+        (release-escrow food)
+        (release-escrow gold)
+        (release-escrow stone)
+        (tribute-to-player this-any-ally wood 10000)
+        (tribute-to-player this-any-ally food 10000)
+        (tribute-to-player this-any-ally gold 10000)
+        (tribute-to-player this-any-ally stone 10000)
+        (disable-self)
+)
+
+(defrule
+	(goal 1 19)
+=>
+	(delete-building town-center)
+	(delete-unit villager)
+	(delete-building barracks)
+	(delete-building archery-range)
+	(delete-building stable)
+	(delete-building siege-workshop)
+	(delete-building castle)
+	(delete-building dock)
+	(delete-building watch-tower)
+	(delete-building guard-tower)
+	(delete-building keep)
+	(delete-building bombard-tower)
+	(delete-unit trade-cog)
+	(delete-unit trade-cart)
+	(delete-unit elite-longboat)
+)
+
+(defrule
+	(goal 1 19)
+=>
+	(delete-unit militiaman)
+	(delete-unit man-at-arms)
+	(delete-unit long-swordsman)
+	(delete-unit two-handed-swordsman)
+	(delete-unit champion)
+	(delete-unit spearman)
+	(delete-unit pikeman)
+	(delete-unit archer)
+	(delete-unit crossbowman)
+	(delete-unit arbalest)
+	(delete-unit skirmisher)
+	(delete-unit elite-skirmisher)
+	(delete-unit scout-cavalry)
+	(delete-unit light-cavalry)
+	(delete-unit knight)
+)
+
+(defrule
+	(goal 1 19)
+=>
+	(delete-unit cavalier)
+	(delete-unit paladin)
+	(delete-unit camel)
+	(delete-unit heavy-camel)
+	(delete-unit cavalry-archer)
+	(delete-unit heavy-cavalry-archer)
+	(delete-unit my-unique-unit)
+	(delete-unit galley)
+	(delete-unit war-galley)
+	(delete-unit galleon)
+	(delete-unit cannon-galleon)
+	(delete-unit fire-ship)
+	(delete-unit fast-fire-ship)
+	(delete-unit battering-ram)
+	(delete-unit capped-ram)
+)
+
+(defrule
+	(goal 1 19)
+=>
+	(delete-unit siege-ram)
+	(delete-unit mangonel)
+	(delete-unit onager)
+	(delete-unit siege-onager)
+	(delete-unit scorpion)
+	(delete-unit heavy-scorpion)
+	(delete-unit transport-ship)
+	(delete-unit hand-cannoneer)
+	(delete-unit bombard-cannon)
+	(delete-unit demolition-ship)
+	(delete-unit heavy-demolition-ship)
+	(delete-unit monk)
+	(delete-unit longboat)
+	(delete-building dock)
+	(delete-building monastery)
+)
+
+(defrule
+	(goal 1 19)
+=>
+	(delete-unit fishing-ship)
+	(delete-unit my-elite-unique-unit)
+	(delete-unit elite-cannon-galleon)
+	(delete-unit trebuchet)
+)
+
+(defrule
+	(population == 0)
+	(building-type-count watch-tower-line == 0)
+	(building-type-count bombard-tower == 0)
+	(building-type-count castle == 0)
+=>
+	(set-goal 1 9)
+	(disable-self)
+)
+
+(defrule
+	(or
+		(timer-triggered 12)
+		(goal 1 9)
+	)
+=>
+	(resign)
+	(disable-self)
+)

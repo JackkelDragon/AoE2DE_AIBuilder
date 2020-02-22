@@ -1,0 +1,1480 @@
+;-----Escrow-----
+
+(defrule
+	(or
+		(or
+			(escrow-amount wood > 2000)
+			(escrow-amount food > 2000)
+		)
+		(or
+			(escrow-amount gold > 3000)
+			(escrow-amount stone > 3000)
+		)
+	)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	 
+)
+
+(defrule
+	(true)
+=>
+	(set-escrow-percentage wood 30)
+	(set-escrow-percentage food 30)
+	(set-escrow-percentage gold 30)
+	(set-escrow-percentage stone 30)
+)
+
+;-----Advance age-----
+(defrule
+	(goal combi yes)
+	(goal allow-advancing yes)
+	(or
+		(or
+			(goal end-age feudal-age)
+			(goal end-age castle-age)
+		)
+		(goal end-age imperial-age)
+	)
+	(can-research-with-escrow feudal-age)
+=>
+	(release-escrow food)
+	(release-escrow gold)
+	(research feudal-age)
+)
+
+(defrule
+	(goal combi yes)
+	(goal allow-advancing yes)
+	(or
+		(goal end-age castle-age)
+		(goal end-age imperial-age)
+	)
+	(can-research-with-escrow castle-age)
+=>
+	(release-escrow food)
+	(release-escrow gold)
+	(research castle-age)
+)
+(defrule
+	(goal combi yes)
+	(goal allow-advancing yes)
+	(goal end-age imperial-age)
+	(can-research-with-escrow imperial-age)
+=>
+	(release-escrow food)
+	(release-escrow gold)
+	(research imperial-age)
+)
+
+;UNIT UPGRADES
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(can-research-with-escrow my-unique-unit-upgrade)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research my-unique-unit-upgrade)
+	(chat-local-to-self "research elite uniques")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(can-research-with-escrow my-unique-research)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research my-unique-research)
+	(chat-local-to-self "research unique research")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count militiaman > 3)
+	(can-research-with-escrow ri-man-at-arms)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-man-at-arms)
+	(chat-local-to-self "research man-at-arms")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count eagle-warrior > 3)
+	(can-research-with-escrow ri-elite-eagle-warrior)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-elite-eagle-warrior)
+	(chat-local-to-self "research elite eagle warrior")
+)
+
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count man-at-arms > 6)
+	(can-research-with-escrow ri-long-swordsman)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-long-swordsman)
+	(chat-local-to-self "research long swordsman ")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count long-swordsman > 6)
+	(can-research-with-escrow ri-two-handed-swordsman)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-two-handed-swordsman)
+	(chat-local-to-self "research two-handed-swordsman")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count two-handed-swordsman > 6)
+	(can-research-with-escrow ri-champion)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-champion)
+	(chat-local-to-self "research champion")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count-total spearman > 2)
+	(can-research-with-escrow ri-pikeman)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-pikeman)
+	(chat-local-to-self "research pike")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count-total pikeman > 2)
+	(can-research-with-escrow ri-halberdier)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-halberdier)
+	(chat-local-to-self "research halberd")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count-total scout-cavalry > 2)
+	(can-research-with-escrow ri-light-cavalry)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-light-cavalry)
+	(chat-local-to-self "research light-cavalry")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count-total light-cavalry > 3)
+	(can-research-with-escrow ri-hussar)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-hussar)
+	(chat-local-to-self "research hussar")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count-total camel > 2)
+	(can-research-with-escrow ri-heavy-camel)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-heavy-camel)
+	(chat-local-to-self "research heavy camel")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+    (unit-type-count-total knight > 2)
+	(can-research-with-escrow ri-cavalier)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-cavalier)
+	(chat-local-to-self "research cavalier")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+    (unit-type-count-total cavalier > 2)
+	(can-research-with-escrow ri-paladin)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-paladin)
+	(chat-local-to-self "research paladin")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count archer > 6)
+	(can-research-with-escrow ri-crossbow)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-crossbow)
+	(chat-local-to-self "research crossbow")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count crossbowman > 6)
+	(can-research-with-escrow ri-arbalest)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-arbalest)
+	(chat-local-to-self "research arbalest")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count cavalry-archer > 6)
+	(can-research-with-escrow ri-heavy-cavalry-archer)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-heavy-cavalry-archer)
+	(chat-local-to-self "research heavy-cavalry-archer")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count-total skirmisher > 2)
+	(can-research-with-escrow ri-elite-skirmisher)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-elite-skirmisher)
+	(chat-local-to-self "research elite skirmisher")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count scorpion > 4)
+	(can-research-with-escrow ri-heavy-scorpion)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-heavy-scorpion)
+	(chat-local-to-self "research heavy-scorpion")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+    (unit-type-count battering-ram > 2)
+	(can-research-with-escrow ri-capped-ram)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-capped-ram)
+	(chat-local-to-self "research capped ram")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+    (unit-type-count capped-ram > 2)
+	(can-research-with-escrow ri-siege-ram)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-siege-ram)
+	(chat-local-to-self "research siege-ram")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(unit-type-count mangonel > 3)
+	(can-research-with-escrow ri-onager)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+      (research ri-onager)
+	(chat-local-to-self "research onager")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+    (unit-type-count onager > 3)
+	(can-research-with-escrow ri-siege-onager)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-siege-onager)
+	(chat-local-to-self "research siege onager")
+)
+
+;DOCK UNITS
+(defrule
+	(goal combi 1)
+	(goal dock-techs 1)
+	(unit-type-count galley > 2)
+	(can-research-with-escrow ri-war-galley)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-war-galley)
+	(chat-local-to-self "research war-galley")
+)
+
+(defrule
+	(goal combi 1)
+	(goal dock-techs 1)
+	(unit-type-count war-galley > 2)
+	(can-research-with-escrow ri-galleon)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-galleon)
+	(chat-local-to-self "research galleon")
+)
+
+(defrule
+	(goal combi 1)
+	(goal dock-techs 1)
+	(or
+		(unit-type-count galleon > 2)
+		(unit-type-count war-galley > 2)
+	)
+	(can-research-with-escrow ri-cannon-galleon)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-cannon-galleon)
+	(chat-local-to-self "research cannon-galleon")
+)
+
+(defrule
+	(goal combi 1)
+	(goal dock-techs 1)
+	(unit-type-count-total fire-ship > 1)
+	(can-research-with-escrow ri-fast-fire-ship)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-fast-fire-ship)
+	(chat-local-to-self "research fast-fire-ship")
+)
+
+(defrule
+	(goal combi 1)
+	(goal dock-techs 1)
+	(unit-type-count demolition-ship > 2)
+	(can-research-with-escrow ri-heavy-demolition-ship)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-heavy-demolition-ship)
+	(chat-local-to-self "research heavy-demolition-ship")
+)
+
+; ////////////////////////WEAPONS/////////////////////////////////////////////////
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(can-research-with-escrow ri-forging)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+     (research ri-forging)
+	(chat-local-to-self "research forging")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(can-research-with-escrow ri-iron-casting)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-iron-casting)
+	(chat-local-to-self "research iron-casting")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(can-research-with-escrow ri-blast-furnace)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-blast-furnace)
+	(chat-local-to-self "research blast-furnace")
+)
+
+;ARCHER UPGRADES -- cost food/gold
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(can-research-with-escrow ri-fletching)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-fletching)
+	(chat-local-to-self "research fletching")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(can-research-with-escrow ri-bodkin-arrow)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-bodkin-arrow)
+	(chat-local-to-self "research bodkin-arrow")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(can-research-with-escrow ri-bracer)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-bracer)
+	(chat-local-to-self "research bracer")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(unit-type-count-total cavalry-archer-line > 3)
+	(can-research-with-escrow ri-parthian-tactics)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-parthian-tactics)
+	(chat-local-to-self "research parthian tactics")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total archer-line > 3)
+		(or
+			(unit-type-count-total skirmisher-line > 3)
+			(unit-type-count-total cavalry-archer-line > 3)
+		)
+	)
+	(can-research-with-escrow ri-thumb-ring)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-thumb-ring)
+	(chat-local-to-self "research thumb ring")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total archer-line > 3)
+		(or
+			(unit-type-count-total skirmisher-line > 3)
+			(unit-type-count-total cavalry-archer-line > 3)
+		)
+	)
+	(can-research-with-escrow ri-padded-archer-armor)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-padded-archer-armor)
+	(chat-local-to-self "research padded-archer-armor")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total archer-line > 3)
+		(or
+			(unit-type-count-total skirmisher-line > 3)
+			(unit-type-count-total cavalry-archer-line > 3)
+		)
+	)
+	(can-research-with-escrow ri-leather-archer-armor)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-leather-archer-armor)
+	(chat-local-to-self "research leather-archer-armor")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total archer-line > 3)
+		(or
+			(unit-type-count-total skirmisher-line > 3)
+			(unit-type-count-total cavalry-archer-line > 3)
+		)
+	)
+	(can-research-with-escrow ri-ring-archer-armor)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-ring-archer-armor)
+	(chat-local-to-self "research ring-archer-armor")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total eagle-warrior-line > 3)
+		(or
+			(unit-type-count-total militiaman-line > 3)
+			(unit-type-count-total spearman-line > 3)
+		)
+	)
+	(can-research-with-escrow ri-scale-mail)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-scale-mail)
+	(chat-local-to-self "research scale-mail")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total eagle-warrior-line > 3)
+		(or
+			(unit-type-count-total militiaman-line > 3)
+			(unit-type-count-total spearman-line > 3)
+		)
+	)
+	(can-research-with-escrow ri-chain-mail)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-chain-mail)
+	(chat-local-to-self "research chain-mail")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total eagle-warrior-line > 3)
+		(or
+			(unit-type-count-total militiaman-line > 3)
+			(unit-type-count-total spearman-line > 3)
+		)
+	)
+	(can-research-with-escrow ri-plate-mail)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-plate-mail)
+	(chat-local-to-self "research plate-mail")
+)
+
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total eagle-warrior-line > 3)
+		(or
+			(unit-type-count-total militiaman-line > 3)
+			(unit-type-count-total spearman-line > 3)
+		)
+	)
+	(can-research-with-escrow ri-supplies)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-supplies)
+	(chat-local-to-self "research supplies")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total eagle-warrior-line > 3)
+		(or
+			(unit-type-count-total militiaman-line > 3)
+			(unit-type-count-total spearman-line > 3)
+		)
+	)
+	(can-research-with-escrow ri-squires)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-squires)
+	(chat-local-to-self "research squires")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total cavalry-archer-line > 3)
+		(or
+			(unit-type-count-total knight-line > 3)
+			(unit-type-count-total scout-cavalry-line > 3)
+		)
+	)
+	(can-research-with-escrow ri-bloodlines)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-bloodlines)
+	(chat-local-to-self "research bloodlines")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total knight-line > 3)
+		(unit-type-count-total scout-cavalry-line > 3)
+	)
+	(can-research-with-escrow ri-scale-barding)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-scale-barding)
+	(chat-local-to-self "research scale-barding")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total knight-line > 3)
+		(unit-type-count-total scout-cavalry-line > 3)
+	)
+	(can-research-with-escrow ri-chain-barding)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-chain-barding)
+	(chat-local-to-self "research chain-barding")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total knight-line > 3)
+		(unit-type-count-total scout-cavalry-line > 3)
+	)
+	(can-research-with-escrow ri-plate-barding)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-plate-barding)
+	(chat-local-to-self "research plate-barding")
+)
+
+(defrule
+	(goal combi 1)
+	(goal blacksmith-techs 1)
+	(or
+		(unit-type-count-total cavalry-archer-line > 3)
+		(or
+			(unit-type-count-total knight-line > 3)
+			(unit-type-count-total scout-cavalry-line > 3)
+		)
+	)
+	(can-research-with-escrow ri-husbandry)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-husbandry)
+	(chat-local-to-self "research husbandry")
+)
+
+; /////////////////////SIEGE RESEARCH ITEMS///////////////////////////
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(can-research-with-escrow ri-siege-engineers)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-siege-engineers)
+	(chat-local-to-self "research siege-engineers")
+)
+
+;FORTRESS UPGRADES
+(defrule
+	(goal combi 1)
+	(goal university-techs 1)
+	(can-research-with-escrow ri-hoardings)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-hoardings)
+	(chat-local-to-self "research hoardings")
+)
+
+;SHIPS
+(defrule
+	(goal combi 1)
+	(goal dock-techs 1)
+	(unit-type-count cannon-galleon > 2)
+	(can-research-with-escrow ri-deck-guns)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-deck-guns)
+	(chat-local-to-self "research deck guns ")
+)
+
+(defrule
+	(goal combi 1)
+	(goal dock-techs 1)
+	(or
+		(unit-type-count transport-ship > 0)
+		(unit-type-count galley-line > 2)
+	)
+	(can-research-with-escrow ri-careening)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-careening)
+	(chat-local-to-self "research careening ")
+)
+
+(defrule
+	(goal combi 1)
+	(goal dock-techs 1)
+	(or
+		(unit-type-count transport-ship > 0)
+		(unit-type-count galley-line > 2)
+	)
+	(can-research-with-escrow ri-dry-dock)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-dry-dock)
+	(chat-local-to-self "research dry-dock ")
+)
+
+(defrule
+	(goal combi 1)
+	(goal dock-techs 1)
+	(or
+		(unit-type-count galley-line > 2)
+		(or
+			(unit-type-count-total cannon-galleon-line > 1)
+			(unit-type-count-total fire-ship-line > 1)
+		)
+	)
+	(can-research-with-escrow ri-shipwright)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-shipwright)
+	(chat-local-to-self "research shipwright ")
+)
+
+;OTHER RESEARCH ITEMS
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(can-research-with-escrow ri-ballistics)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-ballistics)
+	(chat-local-to-self "research ballistics ")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(can-research-with-escrow ri-chemistry)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-chemistry)
+	(chat-local-to-self "research chemistry ")
+)
+
+(defrule
+	(goal combi 1)
+	(goal military-techs 1)
+	(can-research-with-escrow ri-conscription)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-conscription)
+	(chat-local-to-self "research conscription")
+)
+
+; //////////////////////ECONOMIC/////////////////////////////
+
+;mining-camp items
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-gold-mining)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-gold-mining)
+	(chat-local-to-self "research gold mining")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-gold-shaft-mining)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-gold-shaft-mining)
+	(chat-local-to-self "research gold shaft mining")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(building-type-count mining-camp > 1)
+	(can-research-with-escrow ri-stone-mining)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-stone-mining)
+	(chat-local-to-self "research stone mining")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(building-type-count mining-camp > 1)
+	(can-research-with-escrow ri-stone-shaft-mining)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-stone-shaft-mining)
+	(chat-local-to-self "research stone shaft mining")
+)
+
+;mill items
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-horse-collar)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-horse-collar)
+	(chat-local-to-self "research horse collar")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-heavy-plow)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-heavy-plow)
+	(chat-local-to-self "research heavy plow")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-crop-rotation)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-crop-rotation)
+	(chat-local-to-self "research crop rotation")
+)
+
+;saw mill
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-double-bit-axe)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-double-bit-axe)
+	(chat-local-to-self "research double bit axe")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-bow-saw)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-bow-saw)
+	(chat-local-to-self "research bow saw")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-two-man-saw)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-two-man-saw)
+	(chat-local-to-self "research 2 man saw")
+)
+
+;university stuff
+(defrule
+	(goal combi 1)
+	(goal university-techs 1)
+	(can-research-with-escrow ri-masonry)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-masonry)
+	(chat-local-to-self "research masonry")
+)
+
+(defrule
+	(goal combi 1)
+	(goal university-techs 1)
+	(can-research-with-escrow ri-architecture)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-architecture)
+	(chat-local-to-self "research architecture")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-stonecutting)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-stonecutting)
+	(chat-local-to-self "research stonecutting")
+)
+
+;market & town center
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(or
+		(unit-type-count-total trade-cart > 1)
+		(unit-type-count-total trade-cog > 1)
+	)
+	(can-research-with-escrow ri-caravan)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-caravan)
+	(chat-local-to-self "caravan")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-guilds)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-guilds)
+	(chat-local-to-self "research guilds")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(current-age >= castle-age)
+	(can-research-with-escrow ri-loom)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-loom)
+	(chat-local-to-self "research loom")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-hand-cart)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-hand-cart)
+	(chat-local-to-self "research hand-cart")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(can-research-with-escrow ri-wheel-barrow)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-wheel-barrow)
+	(chat-local-to-self "research wheelbarrow")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(or
+		(players-stance any-computer ally)
+		(players-stance any-human ally)
+	)
+	(can-research-with-escrow ri-coinage)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-coinage)
+	(chat-local-to-self "research coinage")
+)
+
+(defrule
+	(goal combi 1)
+	(goal economic-techs 1)
+	(or
+		(players-stance any-computer ally)
+		(players-stance any-human ally)
+	)
+	(can-research-with-escrow ri-banking)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-banking)
+	(chat-local-to-self "research banking")
+)
+
+; ////////////////////MONK/////////////////
+(defrule
+	(goal combi 1)
+	(goal monastery-techs 1)
+	(or
+		(cc-players-unit-type-count any-enemy monk > 1)
+        (unit-type-count-total war-elephant-line > 2)
+	)
+	(can-research-with-escrow ri-faith)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-faith)
+	(chat-local-to-self "research faith")
+)
+
+(defrule
+	(difficulty <= moderate)
+	(goal combi 1)
+	(goal monastery-techs 1)
+	(cc-players-unit-type-count any-enemy monk > 1)
+	(can-research-with-escrow ri-heresy)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-heresy)
+	(chat-local-to-self "research heresy")
+)
+
+(defrule
+	(goal combi 1)
+	(goal monastery-techs 1)
+    (cc-players-unit-type-count any-enemy monk > 2)
+	(can-research-with-escrow ri-atonement)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-atonement)
+	(chat-local-to-self "research atonement")
+)
+
+(defrule
+	(goal combi 1)
+	(goal monastery-techs 1)
+	(unit-type-count-total monk > 2)
+	(can-research-with-escrow ri-block-printing)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-block-printing)
+	(chat-local-to-self "research block printing")
+)
+
+(defrule
+	(goal combi 1)
+	(goal monastery-techs 1)
+	(unit-type-count-total monk > 2)
+	(can-research-with-escrow ri-illumination)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-illumination)
+	(chat-local-to-self "research illumination")
+)
+
+(defrule
+	(goal combi 1)
+	(goal monastery-techs 1)
+	(unit-type-count-total monk > 2)
+	(can-research-with-escrow ri-fervor)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-fervor)
+	(chat-local-to-self "research fervor")
+)
+
+(defrule
+	(goal combi 1)
+	(goal monastery-techs 1)
+	(unit-type-count-total monk > 2)
+	(can-research-with-escrow ri-redemption)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-redemption)
+	(chat-local-to-self "research redemption")
+)
+
+(defrule
+	(goal combi 1)
+	(goal monastery-techs 1)
+	(unit-type-count-total monk > 2)
+	(can-research-with-escrow ri-sanctity)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-sanctity)
+	(chat-local-to-self "research sanctity")
+)
+
+(defrule
+	(goal combi 1)
+	(goal monastery-techs 1)
+	(unit-type-count-total monk > 3)
+	(can-research-with-escrow ri-theocracy)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-theocracy)
+	(chat-local-to-self "research theocracy")
+)
+
+
+;TOWERS & WALLS
+
+(defrule
+	(goal combi 1)
+	(goal university-techs 1)
+	(building-type-count-total watch-tower > 1)
+	(can-research-with-escrow ri-guard-tower)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-guard-tower)
+	(chat-local-to-self "research guard tower")
+)
+
+(defrule
+	(goal combi 1)
+	(goal university-techs 1)
+	(building-type-count-total guard-tower > 1)
+	(can-research-with-escrow ri-keep)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-keep)
+	(chat-local-to-self "research keep")
+)
+
+(defrule
+	(goal combi 1)
+	(goal university-techs 1)
+	(building-type-count university > 0)
+	(building-type-count-total watch-tower-line > 3)
+	(research-available ri-bombard-tower)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+    (research ri-bombard-tower)
+	(chat-local-to-self "research bombard-tower")
+)
+
+(defrule
+	(goal combi 1)
+	(goal university-techs 1)
+	(building-type-count-total watch-tower-line > 3)
+	(can-research-with-escrow ri-heated-shot)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+     (research ri-heated-shot)
+	(chat-local-to-self "research heated-shot")
+)
+
+(defrule
+	(difficulty <= moderate) ; moderate, hard and hardest
+	(goal combi 1)
+	(goal university-techs 1)
+	(or
+		(building-type-count-total castle > 0)
+		(building-type-count-total watch-tower-line > 2)
+	)
+	(can-research-with-escrow ri-murder-holes)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-murder-holes)
+	(chat-local-to-self "research murder-holes")
+)
+
+(defrule
+	(goal combi 1)
+	(goal university-techs 1)
+(or
+		(building-type-count-total castle > 0)
+		(building-type-count-total watch-tower-line > 2)
+	)
+	(can-research-with-escrow ri-fortified-wall)
+=>
+	(release-escrow wood)
+	(release-escrow food)
+	(release-escrow gold)
+	(release-escrow stone)
+	(research ri-fortified-wall)
+	(chat-local-to-self "research fortifications")
+)
