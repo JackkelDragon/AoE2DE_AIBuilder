@@ -621,7 +621,7 @@ def create_final_per_file():
             if (dataname == "Onagers"):
                 finalname = "mangonel-line"
             elif (dataname == "Rams"):
-                finalname = "ram-line"
+                finalname = "battering-ram-line"
             elif (dataname == "Scorpions"):
                 finalname = "scorpion-line"
             elif (dataname == "Trebuchet"):
