@@ -657,7 +657,7 @@ def create_final_per_file():
     
     finaltext += "(defconst food-escrow "+data["UpgradeEscrow1"]+")\n(defconst wood-escrow "+data["UpgradeEscrow2"]+")\n(defconst gold-escrow "+data["UpgradeEscrow3"]+")\n(defconst stone-escrow "+data["UpgradeEscrow4"]+")\n\n"
 
-    finaltext += ";---OTHERS---\n(defconst percentage-builders "+data["BuilderPercent"]+")\n(defconst percentage-gatherers "+data["GathererPercent"]+")\n(defconst percentage-explorers "+data["MilitaryExplorerCount"]+")\n(defconst food-gatherers "+data["FoodGatherPercent"]+")\n(defconst wood-gatherers "+data["WoodGatherPercent"]+")\n(defconst gold-gatherers "+data["GoldGatherPercent"]+")\n(defconst stone-gatherers "+data["StoneGatherPercent"]+")\n(defconst end-feudal 1)\n(defconst end-castle 2)\n(defconst end-imperial 3)\n"
+    finaltext += ";---OTHERS---\n(defconst percentage-builders "+data["BuilderPercent"]+")\n(defconst percentage-gatherers "+data["GathererPercent"]+")\n(defconst percentage-explorers "+data["MilitaryExplorerCount"]+")\n(defconst food-gatherers "+data["FoodGatherPercent"]+")\n(defconst wood-gatherers "+data["WoodGatherPercent"]+")\n(defconst gold-gatherers "+data["GoldGatherPercent"]+")\n(defconst stone-gatherers "+data["StoneGatherPercent"]+")\n(defconst end-dark 0)\n(defconst end-feudal 1)\n(defconst end-castle 2)\n(defconst end-imperial 3)\n"
     
     finaltext += "(defconst task-soldiers "+boolToYesNo(data["TaskUngrouped"])+")\n\n"
 
