@@ -8,6 +8,9 @@ The original FE version of this tool, with the ability to scale units built by d
 (Original FE tool and original version of the library files created by Jan1302.)
 
 Known Potential Issues:
-- "Fortifications" upgrade toggle does nothing; all of its upgrades are under "University" in the library file.
+- ~~"Fortifications" upgrade toggle does nothing; all of its upgrades are under "University" in the library file.~~ The box has been removed to make things easier to understand. Be sure to double-check the upgrade boxes on old saved JSON files.
 - The AI Name entry does not check to see if the entered name is a valid filename.
 - The program was designed to be run with Python 2.7.x. Some attempt to make it compatible with Python 3.x and later has been made, but this has not been tested.
+
+Fixed Issues:
+- The export should now properly use the naval/siege unit counts. Before, it used the counts for default units 1-3.
