@@ -332,12 +332,10 @@ up1 = Label(frame, text="Economic", justify = LEFT)
 up1.place(x=10,y=1660)
 up1 = Label(frame, text="University", justify = LEFT)
 up1.place(x=10,y=1680)
-up1 = Label(frame, text="Fortifications", justify = LEFT)
-up1.place(x=10,y=1700)
 up1 = Label(frame, text="Monastery", justify = LEFT)
-up1.place(x=10,y=1720)
+up1.place(x=10,y=1700)
 up1 = Label(frame, text="Dock", justify = LEFT)
-up1.place(x=10,y=1740)
+up1.place(x=10,y=1720)
 
 upNums = []
 
@@ -351,7 +349,7 @@ for n in range(4):
 upChecks = []
 upChecksVar = []
 
-for n in range(7):
+for n in range(6):
     upChecksVar.append(BooleanVar(False))
     upChecks.append(Checkbutton(frame, variable=upChecksVar[n]))
     upChecks[n].place(x=200,y=1620+(n*20),width=20)
@@ -448,7 +446,7 @@ def collect_data():
         data["UpgradeEscrow"+str(n+1)] = upNums[n].get()
 
     ## upgrade types
-    for n in range(7):
+    for n in range(6):
         data["UpgradeType"+str(n+1)] = upChecksVar[n].get()
 
     ## misc data
@@ -559,7 +557,7 @@ def load_json():
         upNums[n].insert(0,data["UpgradeEscrow"+str(n+1)])
         
     ## upgrade types
-    for n in range(7):
+    for n in range(6):
         upChecksVar[n].set(data["UpgradeType"+str(n+1)])
     
     ## misc data
@@ -663,7 +661,7 @@ def create_final_per_file():
     
     finaltext += "(defconst task-soldiers "+boolToYesNo(data["TaskUngrouped"])+")\n\n"
 
-    finaltext += ";***Set Goals***\n;---Upgrades---\n\n(defrule\n	(true)\n=>\n	(set-goal economic-techs "+boolToYesNo(data["UpgradeType3"])+")\n	(set-goal military-techs "+boolToYesNo(data["UpgradeType1"])+")\n	(set-goal blacksmith-techs "+boolToYesNo(data["UpgradeType2"])+")\n	(set-goal university-techs "+boolToYesNo(data["UpgradeType4"])+")\n	(set-goal monastery-techs "+boolToYesNo(data["UpgradeType6"])+")\n	(set-goal dock-techs "+boolToYesNo(data["UpgradeType7"])+")\n	(set-goal fort-techs "+boolToYesNo(data["UpgradeType5"])+")\n	(disable-self)\n)\n\n"
+    finaltext += ";***Set Goals***\n;---Upgrades---\n\n(defrule\n	(true)\n=>\n	(set-goal economic-techs "+boolToYesNo(data["UpgradeType3"])+")\n	(set-goal military-techs "+boolToYesNo(data["UpgradeType1"])+")\n	(set-goal blacksmith-techs "+boolToYesNo(data["UpgradeType2"])+")\n	(set-goal university-techs "+boolToYesNo(data["UpgradeType4"])+")\n	(set-goal monastery-techs "+boolToYesNo(data["UpgradeType5"])+")\n	(set-goal dock-techs "+boolToYesNo(data["UpgradeType6"])+")\n	(disable-self)\n)\n\n"
 
     ## need to set end age properly
     rawfinalage = data["FinalAge"]
@@ -718,11 +716,11 @@ def create_final_per_file():
             
     for n in range(3):
         if (data["UnitCount"+str(n+1)] != 0):
-            finaltext += "(defrule\n	(goal activate yes)\n	(unit-type-count-total siege"+str(n+1)+" < "+str(data["UnitCount"+str(n+1)])+")\n	(can-train siege"+str(n+1)+")\n=>\n	(train siege"+str(n+1)+")\n)\n"
+            finaltext += "(defrule\n	(goal activate yes)\n	(unit-type-count-total siege"+str(n+1)+" < "+str(data["UnitCount"+str(n+8)])+")\n	(can-train siege"+str(n+1)+")\n=>\n	(train siege"+str(n+1)+")\n)\n"
             
     for n in range(3):
         if (data["UnitCount"+str(n+1)] != 0):
-            finaltext += "(defrule\n	(goal activate yes)\n	(unit-type-count-total naval"+str(n+1)+" < "+str(data["UnitCount"+str(n+1)])+")\n	(can-train naval"+str(n+1)+")\n=>\n	(train naval"+str(n+1)+")\n)\n"
+            finaltext += "(defrule\n	(goal activate yes)\n	(unit-type-count-total naval"+str(n+1)+" < "+str(data["UnitCount"+str(n+11)])+")\n	(can-train naval"+str(n+1)+")\n=>\n	(train naval"+str(n+1)+")\n)\n"
     
     finaltext += ";***Market sales***\n(defrule\n	(goal activate yes)\n	(gold-amount >= 1500)\n	(wood-amount <= 200)\n	(commodity-buying-price wood <= 150)\n	(can-buy-commodity wood)\n	(goal use-market 1)\n=>\n	(buy-commodity wood)\n)\n(defrule\n	(goal activate yes)\n	(gold-amount >= 1500)\n	(food-amount <= 200)\n	(commodity-buying-price food <= 150)\n	(can-buy-commodity food)\n	(goal use-market 1)\n=>\n	(buy-commodity food)\n)\n(defrule\n	(goal activate yes)\n	(gold-amount >= 500)\n	(food-amount <= 100)\n	(can-buy-commodity food)\n	(goal use-market 1)\n=>\n	(buy-commodity food)\n)\n(defrule\n	(goal activate yes)\n	(gold-amount >= 2000)\n	(stone-amount <= 500)\n	(commodity-buying-price stone <= 100)\n	(can-buy-commodity stone)\n	(goal use-market 1)\n=>\n	(buy-commodity stone)\n)\n(defrule\n	(goal activate yes)\n	(gold-amount >= 1500)\n	(stone-amount <= 200)\n	(commodity-buying-price stone <= 200)\n	(can-buy-commodity stone)\n	(goal use-market 1)\n=>\n	(buy-commodity stone)\n)\n(defrule\n	(goal activate yes)\n	(wood-amount >= 2000)\n	(or\n		(gold-amount < 200)\n		(food-amount < 200)\n	)\n	(can-sell-commodity wood)\n	(goal use-market 1)\n=>\n	(sell-commodity wood)\n)\n(defrule\n	(goal activate yes)\n	(food-amount >= 2000)\n	(or\n		(gold-amount < 200)\n		(wood-amount < 200)\n	)\n	(can-sell-commodity food)\n	(goal use-market 1)\n=>\n	(sell-commodity food)\n)\n(defrule\n	(goal activate yes)\n	(stone-amount >= 1500)\n	(or\n		(or\n			(gold-amount < 200)\n			(wood-amount < 200)\n		)\n		(food-amount < 200)\n	)\n	(commodity-selling-price stone >= 70)\n	(can-sell-commodity stone)\n	(goal use-market 1)\n=>\n	(sell-commodity stone)\n)"
     
