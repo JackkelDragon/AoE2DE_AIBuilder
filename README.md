@@ -8,9 +8,14 @@ The original FE version of this tool, with the ability to scale units built by d
 (Original FE tool and original version of the library files created by Jan1302.)
 
 Known Potential Issues:
-- ~~"Fortifications" upgrade toggle does nothing; all of its upgrades are under "University" in the library file.~~ The box has been removed to make things easier to understand. Be sure to double-check the upgrade boxes on old saved JSON files.
 - The AI Name entry does not check to see if the entered name is a valid filename.
-- The program was designed to be run with Python 2.7.x. Some attempt to make it compatible with Python 3.x and later has been made, but this has not been tested.
+- The program was originally designed to be run with Python 2.7.x. It should now be compatible with Python 3.9.x onward, but this has not been tested extensively.
 
-Fixed Issues:
-- The export should now properly use the naval/siege unit counts. Before, it used the counts for default units 1-3.
+v2 Update (December 2022) Notes:
+- Some bugs relating to unit counts should now be fixed.
+- Added limited support for training units based on editor IDs.
+- Aging up should now work properly.
+- If the number of military scouts is set to zero, the AI should no longer do any scouting.
+- Added the option to allow the AI to cheat for specific resources.
+- Minor visual tweaks and fixes.
+- NOTE: JSON saves made with older versions of the program may no longer work! (New fields have been added to the current version.)

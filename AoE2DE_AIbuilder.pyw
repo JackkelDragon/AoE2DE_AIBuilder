@@ -15,7 +15,7 @@ import json
 ## Create the main window
 
 window = Tk()
-window.title("AoE2 DE Campaign AI Builder v1 by Jackkel Dragon")
+window.title("AoE2 DE Campaign AI Builder v2 by Jackkel Dragon")
 window.geometry('800x600')
 
 ## scrolling
@@ -33,7 +33,7 @@ canvas.configure(yscrollcommand=scrolly.set)
 
 ## Top label
 
-intro = Label(frame, text="This is a program for creating basic AI for custom campaigns in Age of Empires 2: Definitive Edition.\nIt is based on the Forgotten Empires AI Builder written by Jan1302.\n\nFE's web app can be found here: http://www.forgottenempires.net/aibuilder/", justify = LEFT)
+intro = Label(frame, text="This is a program for creating basic AI for custom campaigns in Age of Empires 2: Definitive Edition.\nIt is based on the Forgotten Empires AI Builder written by Jan1302.\n\nFE's web app could formerly be found here: http://www.forgottenempires.net/aibuilder/", justify = LEFT)
 intro.place(x=10,y=10)
 
 ## AI Name (for filenames)
@@ -67,6 +67,8 @@ aisignal_help.place(x=10,y=240)
 
 aisignal = Spinbox(frame, from_=0, to=255, width=3)
 aisignal.place(x=250,y=260)
+
+aisignal.set("0")
 
 ## Strategic Numbers Title
 
@@ -106,6 +108,15 @@ sn7c.place(x=315,y=520)
 sn8c = Spinbox(frame, from_=0, to=100, width=3)
 sn8c.place(x=355,y=520)
 
+# fix for py3 defaults
+sn2c.set("0")
+sn3c.set("0")
+sn4c.set("0")
+sn5c.set("0")
+sn6c.set("0")
+sn7c.set("0")
+sn8c.set("0")
+
 ## Economy Title
 
 eclabel = Label(frame, text="Economy", width=600, anchor="center")
@@ -128,6 +139,11 @@ ec3c = Spinbox(frame, from_=0, to=100, width=3)
 ec3c.place(x=420,y=580)
 ec4c = Spinbox(frame, from_=0, to=100, width=3)
 ec4c.place(x=570,y=580)
+
+ec1c.set("0")
+ec2c.set("0")
+ec3c.set("0")
+ec4c.set("0")
 
 ## Military Title
 
@@ -177,24 +193,24 @@ for n in range(3):
 milTypes = []
 
 class UnitCombobox(Combobox):
-	def __init__(self, master=None, **kw):
-		Combobox.__init__(self, master, values=["Swordsmen","Spearmen","Scout Cavalry","Knights","Camels","Archers","Skirmishers","Cavalry Archers","Hand Cannoneers","Unique Units","Monks"], state="readonly", **kw)
+    def __init__(self, master=None, **kw):
+        Combobox.__init__(self, master, values=["Swordsmen","Spearmen","Scout Cavalry","Knights","Camels","Archers","Skirmishers","Cavalry Archers","Hand Cannoneers","Unique Units","Monks"], state="readonly", **kw)
 
 for n in range(7):
     milTypes.append(UnitCombobox(frame, textvariable=milTypesVal[n]))
     milTypes[n].place(x=120,y=650+(n*30))
 
 class SiegeCombobox(Combobox):
-	def __init__(self, master=None, **kw):
-		Combobox.__init__(self, master, values=["Onagers","Rams","Scorpions","Trebuchet","Cannons"], state="readonly", **kw)
+    def __init__(self, master=None, **kw):
+        Combobox.__init__(self, master, values=["Onagers","Rams","Scorpions","Trebuchet","Cannons"], state="readonly", **kw)
 
 for n in range(3):
     milTypes.append(SiegeCombobox(frame, textvariable=milTypesVal[n+7]))
     milTypes[n+7].place(x=490,y=650+(n*30))
 
 class NavalCombobox(Combobox):
-	def __init__(self, master=None, **kw):
-		Combobox.__init__(self, master, values=["Galleys","Fire Ships","Cannon Galleons","Demolition Ships","Transport Ships"], state="readonly", **kw)
+    def __init__(self, master=None, **kw):
+        Combobox.__init__(self, master, values=["Galleys","Fire Ships","Cannon Galleons","Demolition Ships","Transport Ships"], state="readonly", **kw)
 
 for n in range(3):
     milTypes.append(NavalCombobox(frame, textvariable=milTypesVal[n+10]))
@@ -205,10 +221,22 @@ milNums = []
 for n in range(7):
     milNums.append(Spinbox(frame, from_=0, to=100, width=3))
     milNums[n].place(x=280,y=650+(n*30))
+    milNums[n].set("0")
 
 for n in range(6):
     milNums.append(Spinbox(frame, from_=0, to=100, width=3))
     milNums[n+7].place(x=650,y=650+(n*30))
+    milNums[n+7].set("0")
+
+milEditorIDs = []
+
+for n in range(3):
+    milEditorIDs.append(Entry(frame,width=6))
+    milEditorIDs[n].place(x=350+(n*120), y=830)
+
+    milNums.append(Spinbox(frame, from_=0, to=100, width=3))
+    milNums[n+13].place(x=410+(n*120),y=830)
+    milNums[n+13].set("0")
 
 ## Building Title
 
@@ -265,10 +293,12 @@ blNums = []
 for n in range(9):
     blNums.append(Spinbox(frame, from_=0, to=100, width=3))
     blNums[n].place(x=300,y=960+(n*20))
+    blNums[n].set("0")
 
 for n in range(9):
     blNums.append(Spinbox(frame, from_=0, to=100, width=3))
     blNums[n+9].place(x=600,y=960+(n*20))
+    blNums[n+9].set("0")
 
 ## Attacks Title
 
@@ -299,10 +329,12 @@ atkNums = []
 for n in range(2):
     atkNums.append(Spinbox(frame, from_=0, to=7200, width=8))
     atkNums[n].place(x=300,y=1250+(n*30))
+    atkNums[n].set("0")
 
 for n in range(4):
     atkNums.append(Spinbox(frame, from_=0, to=200, width=4))
     atkNums[n+2].place(x=300,y=1310+(n*30))
+    atkNums[n+2].set("0")
 
 ## Upgrades Title
 
@@ -342,9 +374,7 @@ upNums = []
 for n in range(4):
     upNums.append(Spinbox(frame, from_=0, to=100, width=4))
     upNums[n].place(x=200,y=1500+(n*20))
-
-##upNums[0].delete(0) ## debug stuff here
-##upNums[0].insert(0,1) ##
+    upNums[n].set("0")
 
 upChecks = []
 upChecksVar = []
@@ -368,6 +398,15 @@ misc1.place(x=10,y=1860)
 misc1 = Label(frame, text="Final Age (for above)", justify = LEFT)
 misc1.place(x=10,y=1880)
 
+misc2 = Label(frame, text="Cheat Food", justify = LEFT)
+misc2.place(x=360,y=1820)
+misc2 = Label(frame, text="Cheat Wood", justify = LEFT)
+misc2.place(x=360,y=1840)
+misc2 = Label(frame, text="Cheat Gold", justify = LEFT)
+misc2.place(x=360,y=1860)
+misc2 = Label(frame, text="Cheat Stone", justify = LEFT)
+misc2.place(x=360,y=1880)
+
 miscChecks = []
 miscChecksVar = []
 
@@ -375,6 +414,11 @@ for n in range(3):
     miscChecksVar.append(BooleanVar(False))
     miscChecks.append(Checkbutton(frame, variable=miscChecksVar[n]))
     miscChecks[n].place(x=200,y=1820+(n*20),width=20)
+
+for n in range(4):
+    miscChecksVar.append(BooleanVar(False))
+    miscChecks.append(Checkbutton(frame, variable=miscChecksVar[n+3]))
+    miscChecks[n+3].place(x=550,y=1820+(n*20),width=20)
 
 finAgeVal = StringVar()
 finAgeVal.set("Dark Age")
@@ -423,6 +467,11 @@ def collect_data():
         data["UnitType"+str(n+1)] = milTypes[n].get()
         data["UnitCount"+str(n+1)] = milNums[n].get()
 
+    # custom unit IDs
+    for n in range(3):
+        data["UnitType"+str(n+14)] = milEditorIDs[n].get()
+        data["UnitCount"+str(n+14)] = milNums[n+13].get()
+
     ## build houses?
     data["BuildHouses"] = bl1cVal.get()
 
@@ -454,6 +503,11 @@ def collect_data():
     data["DefaultResign"] = miscChecksVar[1].get()
     data["AdvanceAge"] = miscChecksVar[2].get()
     data["FinalAge"] = finAgeVal.get()
+
+    data["CheatFood"] = miscChecksVar[3].get()
+    data["CheatWood"] = miscChecksVar[4].get()
+    data["CheatGold"] = miscChecksVar[5].get()
+    data["CheatStone"] = miscChecksVar[6].get()
 
     #print(data) ## for debugging
         
@@ -529,6 +583,12 @@ def load_json():
         milTypes[n].set(data["UnitType"+str(n+1)])
         milNums[n].delete(0,END)
         milNums[n].insert(0,data["UnitCount"+str(n+1)])
+
+    # custom unit IDs
+    for n in range(3):
+        milEditorIDs[n].delete(0,END)
+        milEditorIDs[n].insert(0,data["UnitType"+str(n+14)])
+        milNums[n+13].set(data["UnitCount"+str(n+14)])
     
     ## build houses?
     bl1cVal.set(data["BuildHouses"])
@@ -565,6 +625,11 @@ def load_json():
     miscChecksVar[1].set(data["DefaultResign"])
     miscChecksVar[2].set(data["AdvanceAge"])
     finAgeVal.set(data["FinalAge"])
+
+    miscChecksVar[3].set(data["CheatFood"])
+    miscChecksVar[4].set(data["CheatWood"])
+    miscChecksVar[5].set(data["CheatGold"])
+    miscChecksVar[6].set(data["CheatStone"])
     
 def boolToYesNo(bool):
 
@@ -648,6 +713,16 @@ def create_final_per_file():
                 finalname = "transport-ship"
             
             finaltext += "(defconst naval"+str(n+1)+" "+finalname+")\n"
+
+    for n in range(3):
+        if (data["UnitCount"+str(n+14)] != 0):
+            dataname = data["UnitType"+str(n+14)]
+            finalname = "0" ## don't leave me blank
+
+            if (dataname != ""):
+                finalname = dataname
+            
+            finaltext += "(defconst editor"+str(n+1)+" "+finalname+")\n"
     
     finaltext += "(defconst blacksmith-techs 5)\n(defconst military-techs 6)\n(defconst economic-techs 7)\n(defconst university-techs 8)\n(defconst monastery-techs 9)\n(defconst dock-techs 10)\n(defconst build-houses 11)\n(defconst end-age 12)\n(defconst use-market 14)\n(defconst default-resign 15)\n(defconst allow-advancing 16)\n(defconst allow-signal 17)\n(defconst active-at-start 18)\n(defconst activate 19)\n(defconst combi 20)\n\n"
 
@@ -661,68 +736,87 @@ def create_final_per_file():
     
     finaltext += "(defconst task-soldiers "+boolToYesNo(data["TaskUngrouped"])+")\n\n"
 
-    finaltext += ";***Set Goals***\n;---Upgrades---\n\n(defrule\n	(true)\n=>\n	(set-goal economic-techs "+boolToYesNo(data["UpgradeType3"])+")\n	(set-goal military-techs "+boolToYesNo(data["UpgradeType1"])+")\n	(set-goal blacksmith-techs "+boolToYesNo(data["UpgradeType2"])+")\n	(set-goal university-techs "+boolToYesNo(data["UpgradeType4"])+")\n	(set-goal monastery-techs "+boolToYesNo(data["UpgradeType5"])+")\n	(set-goal dock-techs "+boolToYesNo(data["UpgradeType6"])+")\n	(disable-self)\n)\n\n"
+    finaltext += ";***Set Goals***\n;---Upgrades---\n\n(defrule\n   (true)\n=>\n    (set-goal economic-techs "+boolToYesNo(data["UpgradeType3"])+")\n   (set-goal military-techs "+boolToYesNo(data["UpgradeType1"])+")\n   (set-goal blacksmith-techs "+boolToYesNo(data["UpgradeType2"])+")\n (set-goal university-techs "+boolToYesNo(data["UpgradeType4"])+")\n (set-goal monastery-techs "+boolToYesNo(data["UpgradeType5"])+")\n  (set-goal dock-techs "+boolToYesNo(data["UpgradeType6"])+")\n   (disable-self)\n)\n\n"
 
     ## need to set end age properly
     rawfinalage = data["FinalAge"]
-    truefinalage = "end-dark"
+    truefinalage = "dark-age" #"end-dark"
     
     if (rawfinalage == "Feudal Age"):
-        truefinalage = "end-feudal"
+        truefinalage = "feudal-age" #"end-feudal"
     elif (rawfinalage == "Castle Age"):
-        truefinalage = "end-castle"
+        truefinalage = "castle-age" #"end-castle"
     elif (rawfinalage == "Imperial Age"):
-        truefinalage = "end-imperial"
+        truefinalage = "imperial-age" #"end-imperial"
 
-    finaltext += ";---General---\n\n(defrule\n	(true)\n=>\n	(set-goal allow-advancing "+boolToYesNo(data["AdvanceAge"])+")\n	(set-goal build-houses "+boolToYesNo(data["BuildHouses"])+")\n	(set-goal end-age "+truefinalage+")\n	(set-goal use-market "+boolToYesNo(data["UseMarket"])+")\n	(set-goal default-resign "+boolToYesNo(data["DefaultResign"])+")\n	"
+    finaltext += ";---General---\n\n(defrule\n  (true)\n=>\n    (set-goal allow-advancing "+boolToYesNo(data["AdvanceAge"])+")\n    (set-goal build-houses "+boolToYesNo(data["BuildHouses"])+")\n  (set-goal end-age "+truefinalage+")\n   (set-goal use-market "+boolToYesNo(data["UseMarket"])+")\n  (set-goal default-resign "+boolToYesNo(data["DefaultResign"])+")\n  "
     
     ## signal and active at start
-    ##finaltext += "(set-goal allow-signal 0)\n	(set-goal active-at-start 1)\n	(disable-self)\n)\n\n"
+    ##finaltext += "(set-goal allow-signal 0)\n (set-goal active-at-start 1)\n  (disable-self)\n)\n\n"
     
     if (data["AIActivation"] == 3):
-        finaltext += "(set-goal allow-signal 0)\n	(set-goal active-at-start 1)\n	(disable-self)\n)\n\n"
+        finaltext += "(set-goal allow-signal 0)\n   (set-goal active-at-start 1)\n  (disable-self)\n)\n\n"
     else:
-        finaltext += "(set-goal allow-signal 1)\n	(set-goal active-at-start 0)\n	(disable-self)\n)\n\n"
+        finaltext += "(set-goal allow-signal 1)\n   (set-goal active-at-start 0)\n  (disable-self)\n)\n\n"
 
-    finaltext += ";---Activation---\n;when a signal is sent or the AI is allowed to be active at start it will tell the AI to enable the activate goal. This goal will make the AI active. (Combi is for backwards compability)\n\n(defrule\n	(or\n		(and\n		(event-detected trigger aisignal)\n		(goal allow-signal yes)\n		)\n	(goal active-at-start yes)\n	)\n=>\n	(set-goal activate yes)\n	(set-goal combi yes)\n	(disable-self)\n)\n\n"
+    finaltext += ";---Activation---\n;when a signal is sent or the AI is allowed to be active at start it will tell the AI to enable the activate goal. This goal will make the AI active. (Combi is for backwards compability)\n\n(defrule\n   (or\n       (and\n      (event-detected trigger aisignal)\n     (goal allow-signal yes)\n       )\n (goal active-at-start yes)\n    )\n=>\n (set-goal activate yes)\n   (set-goal combi yes)\n  (disable-self)\n)\n\n"
      
     finaltext += ";***Setup***\n;---Load Externals---\n;load extra files. These files are generic and take care of the resigning of the AI, its upgrades and the active use of the market.\n\n(load \"builder resign\")\n(load \"builder upgrades\")\n(load \"builder market\")\n\n"
     
-    finaltext += ";---Immobile Behaviour---\n;default behaviour is set to immobile\n(defrule\n	(goal active-at-start no)\n=>\n	(set-strategic-number sn-maximum-food-drop-distance 0)\n	(set-strategic-number sn-maximum-wood-drop-distance 0)\n	(set-strategic-number sn-maximum-gold-drop-distance 0)\n	(set-strategic-number sn-maximum-hunt-drop-distance 0)\n	(set-strategic-number sn-maximum-stone-drop-distance 0)\n	(set-strategic-number sn-food-gatherer-percentage 0)\n	(set-strategic-number sn-wood-gatherer-percentage 0)\n	(set-strategic-number sn-gold-gatherer-percentage 0)\n	(set-strategic-number sn-stone-gatherer-percentage 0)\n	(set-strategic-number sn-cap-civilian-explorers 0)\n	(set-strategic-number sn-percent-civilian-explorers 0) \n	(disable-self)\n)\n(defrule	\n	(goal active-at-start no)\n=>\n	(set-strategic-number sn-defense-distance 20)\n	(set-strategic-number sn-sentry-distance 20)\n	(set-strategic-number sn-percent-enemy-sighted-response 100)\n	(set-strategic-number sn-number-explore-groups 0)\n	(set-strategic-number sn-percent-attack-soldiers 0)\n	(set-strategic-number sn-task-ungrouped-soldiers 0)\n	(set-strategic-number sn-number-attack-groups 0)\n	(set-strategic-number sn-enemy-sighted-response-distance 10)\n	(set-strategic-number sn-total-number-explorers 0)\n	(set-strategic-number sn-minimum-town-size 0)\n	(set-strategic-number sn-maximum-town-size 0)\n	(disable-self)\n)\n"
+    finaltext += ";---Immobile Behaviour---\n;default behaviour is set to immobile\n(defrule\n  (goal active-at-start no)\n=>\n (set-strategic-number sn-maximum-food-drop-distance 0)\n    (set-strategic-number sn-maximum-wood-drop-distance 0)\n    (set-strategic-number sn-maximum-gold-drop-distance 0)\n    (set-strategic-number sn-maximum-hunt-drop-distance 0)\n    (set-strategic-number sn-maximum-stone-drop-distance 0)\n   (set-strategic-number sn-food-gatherer-percentage 0)\n  (set-strategic-number sn-wood-gatherer-percentage 0)\n  (set-strategic-number sn-gold-gatherer-percentage 0)\n  (set-strategic-number sn-stone-gatherer-percentage 0)\n (set-strategic-number sn-cap-civilian-explorers 0)\n    (set-strategic-number sn-percent-civilian-explorers 0) \n   (disable-self)\n)\n(defrule \n  (goal active-at-start no)\n=>\n (set-strategic-number sn-defense-distance 20)\n (set-strategic-number sn-sentry-distance 20)\n  (set-strategic-number sn-percent-enemy-sighted-response 100)\n  (set-strategic-number sn-number-explore-groups 0)\n (set-strategic-number sn-percent-attack-soldiers 0)\n   (set-strategic-number sn-task-ungrouped-soldiers 0)\n   (set-strategic-number sn-number-attack-groups 0)\n  (set-strategic-number sn-enemy-sighted-response-distance 10)\n  (set-strategic-number sn-total-number-explorers 0)\n    (set-strategic-number sn-minimum-town-size 0)\n (set-strategic-number sn-maximum-town-size 0)\n (disable-self)\n)\n"
+
+    ## fix for 0 scouts
+    scoutnum = 1
+    if (data["MilitaryExplorerCount"] == "0"):
+        scoutnum = 0
     
-    finaltext += ";---Active Behaviour---\n;when activated the AI will begin to play\n(defrule\n	(goal activate yes)\n=>\n	(set-strategic-number sn-percent-civilian-builders percentage-builders)\n	(set-strategic-number sn-percent-civilian-gatherers percentage-gatherers)\n	(set-strategic-number sn-percent-civilian-explorers 0)\n	(set-strategic-number sn-number-explore-groups 1)\n 	(set-strategic-number sn-total-number-explorers percentage-explorers)\n	(set-strategic-number sn-food-gatherer-percentage food-gatherers)\n	(set-strategic-number sn-wood-gatherer-percentage wood-gatherers)\n	(set-strategic-number sn-gold-gatherer-percentage gold-gatherers)\n	(set-strategic-number sn-stone-gatherer-percentage stone-gatherers)\n	(disable-self)\n)\n(defrule\n	(goal activate yes)\n=>\n	(set-strategic-number sn-maximum-hunt-drop-distance 30)\n	(set-strategic-number sn-mill-max-distance 30)\n	(set-strategic-number sn-maximum-gold-drop-distance 20)\n	(set-strategic-number sn-maximum-stone-drop-distance 20)\n	(set-strategic-number sn-maximum-food-drop-distance 10) \n	(set-strategic-number sn-maximum-wood-drop-distance 20)\n	(set-strategic-number sn-task-ungrouped-soldiers task-soldiers)\n	(disable-self)\n)\n;"
+    finaltext += ";---Active Behaviour---\n;when activated the AI will begin to play\n(defrule\n    (goal activate yes)\n=>\n   (set-strategic-number sn-percent-civilian-builders percentage-builders)\n   (set-strategic-number sn-percent-civilian-gatherers percentage-gatherers)\n (set-strategic-number sn-percent-civilian-explorers 0)\n    (set-strategic-number sn-number-explore-groups "+str(scoutnum)+")\n     (set-strategic-number sn-total-number-explorers percentage-explorers)\n (set-strategic-number sn-food-gatherer-percentage food-gatherers)\n (set-strategic-number sn-wood-gatherer-percentage wood-gatherers)\n (set-strategic-number sn-gold-gatherer-percentage gold-gatherers)\n (set-strategic-number sn-stone-gatherer-percentage stone-gatherers)\n   (disable-self)\n)\n(defrule\n   (goal activate yes)\n=>\n   (set-strategic-number sn-maximum-hunt-drop-distance 30)\n   (set-strategic-number sn-mill-max-distance 30)\n    (set-strategic-number sn-maximum-gold-drop-distance 20)\n   (set-strategic-number sn-maximum-stone-drop-distance 20)\n  (set-strategic-number sn-maximum-food-drop-distance 10) \n  (set-strategic-number sn-maximum-wood-drop-distance 20)\n   (set-strategic-number sn-task-ungrouped-soldiers task-soldiers)\n   (disable-self)\n)\n;"
     
-    finaltext += "***AI Behaviour***\n;-----Dodging rules-----\n;ability of the AI to dodge enemy missiles shot at them and maintaining distance when engaging with enemies. The lower the number how better they are at it.\n(defrule\n	(difficulty == easiest)\n=>\n	(set-difficulty-parameter ability-to-maintain-distance 90)\n	(set-difficulty-parameter ability-to-dodge-missiles 90)\n	(disable-self)\n)\n(defrule\n	(difficulty == easy)\n=>\n	(set-difficulty-parameter ability-to-maintain-distance 70)\n	(set-difficulty-parameter ability-to-dodge-missiles 70)\n	(disable-self)\n)\n(defrule\n	(difficulty == moderate)\n=>\n	(set-difficulty-parameter ability-to-maintain-distance 50) \n	(set-difficulty-parameter ability-to-dodge-missiles 50)\n	(disable-self)\n)\n(defrule\n	(difficulty == hard)\n=>\n	(set-difficulty-parameter ability-to-maintain-distance 30) \n	(set-difficulty-parameter ability-to-dodge-missiles 30)\n	(disable-self)\n)\n(defrule\n	(difficulty == hardest)\n=>\n	(set-difficulty-parameter ability-to-maintain-distance 0) \n	(set-difficulty-parameter ability-to-dodge-missiles 0)\n	(disable-self)\n)\n;"
+    finaltext += "***AI Behaviour***\n;-----Dodging rules-----\n;ability of the AI to dodge enemy missiles shot at them and maintaining distance when engaging with enemies. The lower the number how better they are at it.\n(defrule\n    (difficulty == easiest)\n=>\n   (set-difficulty-parameter ability-to-maintain-distance 90)\n    (set-difficulty-parameter ability-to-dodge-missiles 90)\n   (disable-self)\n)\n(defrule\n   (difficulty == easy)\n=>\n  (set-difficulty-parameter ability-to-maintain-distance 70)\n    (set-difficulty-parameter ability-to-dodge-missiles 70)\n   (disable-self)\n)\n(defrule\n   (difficulty == moderate)\n=>\n  (set-difficulty-parameter ability-to-maintain-distance 50) \n   (set-difficulty-parameter ability-to-dodge-missiles 50)\n   (disable-self)\n)\n(defrule\n   (difficulty == hard)\n=>\n  (set-difficulty-parameter ability-to-maintain-distance 30) \n   (set-difficulty-parameter ability-to-dodge-missiles 30)\n   (disable-self)\n)\n(defrule\n   (difficulty == hardest)\n=>\n   (set-difficulty-parameter ability-to-maintain-distance 0) \n    (set-difficulty-parameter ability-to-dodge-missiles 0)\n    (disable-self)\n)\n;"
     
-    finaltext += "***Production***\n;---Homebase Stats---\n(defrule\n	(goal activate yes)\n=>\n	(set-strategic-number sn-maximum-town-size 15)\n    (set-strategic-number sn-camp-max-distance 20)\n   	(set-strategic-number sn-mill-max-distance 30)\n	(set-strategic-number sn-percent-enemy-sighted-response 50)\n	(set-strategic-number sn-enemy-sighted-response-distance 15)\n	(set-strategic-number sn-blot-exploration-map 0)\n	(set-strategic-number sn-sentry-distance 20)\n	(disable-self)\n)\n"
+    finaltext += "***Production***\n;---Homebase Stats---\n(defrule\n   (goal activate yes)\n=>\n   (set-strategic-number sn-maximum-town-size 15)\n    (set-strategic-number sn-camp-max-distance 20)\n    (set-strategic-number sn-mill-max-distance 30)\n    (set-strategic-number sn-percent-enemy-sighted-response 50)\n   (set-strategic-number sn-enemy-sighted-response-distance 15)\n  (set-strategic-number sn-blot-exploration-map 0)\n  (set-strategic-number sn-sentry-distance 20)\n  (disable-self)\n)\n"
     
-    finaltext += ";---Farming and Civilians---\n(defrule\n	(goal activate yes)\n	(building-type-count-total farm less-than "+data["BuildingCount2"]+")\n	(or\n	(building-type-count-total mill > 0)\n	(building-type-count-total town-center > 0)\n	)\n	(idle-farm-count <= 1)\n	(can-build farm)\n=>\n	(build farm)\n)\n(defrule\n	(goal activate yes)\n	(unit-type-count-total villager < "+data["VillagerCount"]+")\n	(can-train villager)\n=>\n	(train villager)\n) \n(defrule\n	(goal activate yes)\n	(unit-type-count-total trade-cart < "+data["TradeCartCount"]+")\n	(can-train trade-cart)\n=>\n	(train trade-cart)\n) \n(defrule\n	(goal activate yes)\n	(unit-type-count-total trade-cog < "+data["TradeCogCount"]+")\n	(can-train trade-cog)\n=>\n	(train trade-cog)\n) \n(defrule\n	(goal activate yes)\n	(unit-type-count-total fishing-ship < "+data["FishShipCount"]+")\n	(dropsite-min-distance food < 20)\n	(can-train fishing-ship)\n=>\n	(train fishing-ship)\n) \n"
+    finaltext += ";---Farming and Civilians---\n(defrule\n  (goal activate yes)\n   (building-type-count-total farm less-than "+data["BuildingCount2"]+")\n (or\n   (building-type-count-total mill > 0)\n  (building-type-count-total town-center > 0)\n   )\n (idle-farm-count <= 1)\n    (can-build farm)\n=>\n  (build farm)\n)\n(defrule\n (goal activate yes)\n   (unit-type-count-total villager < "+data["VillagerCount"]+")\n  (can-train villager)\n=>\n  (train villager)\n) \n(defrule\n    (goal activate yes)\n   (unit-type-count-total trade-cart < "+data["TradeCartCount"]+")\n   (can-train trade-cart)\n=>\n    (train trade-cart)\n) \n(defrule\n  (goal activate yes)\n   (unit-type-count-total trade-cog < "+data["TradeCogCount"]+")\n (can-train trade-cog)\n=>\n (train trade-cog)\n) \n(defrule\n   (goal activate yes)\n   (unit-type-count-total fishing-ship < "+data["FishShipCount"]+")\n  (dropsite-min-distance food < 20)\n (can-train fishing-ship)\n=>\n  (train fishing-ship)\n) \n"
     
-    finaltext += ";---Economic Buildings---\n(defrule\n	(goal activate yes)\n	(building-type-count-total town-center < "+data["BuildingCount1"]+")\n	(can-build town-center)\n=>\n	(build town-center)\n) \n(defrule\n	(goal activate yes)\n	(housing-headroom less-than 4)\n	(population-headroom greater-than 0)\n	(can-build house)\n	(goal build-houses 1)\n=>\n	(build house)\n)\n(defrule\n	(goal activate yes)\n	(resource-found wood)\n	(dropsite-min-distance wood > 4)\n	(building-type-count-total lumber-camp < "+data["BuildingCount3"]+")\n	(can-build lumber-camp)\n=>\n	(build lumber-camp)\n) \n(defrule\n	(goal activate yes)\n	(building-type-count-total mill < "+data["BuildingCount4"]+")\n	(dropsite-min-distance food > 5)\n	(can-build mill)\n=>\n	(build mill)\n) \n(defrule\n	(goal activate yes)\n	(resource-found gold)\n	(building-type-count-total mining-camp < "+data["BuildingCount5"]+")\n	(dropsite-min-distance gold > 5)\n	(can-build mining-camp)\n=>\n	(build mining-camp)\n) \n(defrule\n	(goal activate yes)\n	(resource-found stone)\n	(building-type-count-total mining-camp < "+data["BuildingCount6"]+")\n	(dropsite-min-distance stone > 5)\n	(can-build mining-camp)\n=>\n	(build mining-camp)\n) \n"
+    finaltext += ";---Economic Buildings---\n(defrule\n (goal activate yes)\n   (building-type-count-total town-center < "+data["BuildingCount1"]+")\n  (can-build town-center)\n=>\n   (build town-center)\n) \n(defrule\n (goal activate yes)\n   (housing-headroom less-than 4)\n    (population-headroom greater-than 0)\n  (can-build house)\n (goal build-houses 1)\n=>\n (build house)\n)\n(defrule\n    (goal activate yes)\n   (resource-found wood)\n (dropsite-min-distance wood > 4)\n  (building-type-count-total lumber-camp < "+data["BuildingCount3"]+")\n  (can-build lumber-camp)\n=>\n   (build lumber-camp)\n) \n(defrule\n (goal activate yes)\n   (building-type-count-total mill < "+data["BuildingCount4"]+")\n (dropsite-min-distance food > 5)\n  (can-build mill)\n=>\n  (build mill)\n) \n(defrule\n    (goal activate yes)\n   (resource-found gold)\n (building-type-count-total mining-camp < "+data["BuildingCount5"]+")\n  (dropsite-min-distance gold > 5)\n  (can-build mining-camp)\n=>\n   (build mining-camp)\n) \n(defrule\n (goal activate yes)\n   (resource-found stone)\n    (building-type-count-total mining-camp < "+data["BuildingCount6"]+")\n  (dropsite-min-distance stone > 5)\n (can-build mining-camp)\n=>\n   (build mining-camp)\n) \n"
     
-    finaltext += ";---Military and Research Buildings---\n(defrule\n	(goal activate yes)\n	(building-type-count-total barracks < "+data["BuildingCount7"]+")\n	(can-build barracks)\n=>\n	(build barracks)\n) \n(defrule\n	(goal activate yes)	\n	(building-type-count-total archery-range < "+data["BuildingCount8"]+")\n	(can-build archery-range)\n=>\n	(build archery-range)\n) \n(defrule\n	(goal activate yes)\n	(building-type-count-total stable < "+data["BuildingCount9"]+")\n	(can-build stable)\n=>\n	(build stable)\n) \n(defrule\n	(goal activate yes)\n	(building-type-count-total siege-workshop < "+data["BuildingCount10"]+")\n	(can-build siege-workshop)\n=>\n	(build siege-workshop)\n) \n(defrule\n	(goal activate yes)\n	(building-type-count-total dock < "+data["BuildingCount15"]+")\n	(can-build dock)\n=>\n	(build dock)\n) \n(defrule\n	(goal activate yes)\n	(building-type-count-total university < "+data["BuildingCount13"]+")\n	(can-build university)\n=>\n	(build university)\n) \n(defrule\n	(goal activate yes)\n	(building-type-count-total blacksmith < "+data["BuildingCount11"]+")\n	(can-build blacksmith)\n=>\n	(build blacksmith)\n) \n(defrule\n	(goal activate yes)\n	(building-type-count-total market < "+data["BuildingCount12"]+")\n	(can-build market)\n=>\n	(build market)\n) \n(defrule\n	(goal activate yes)\n	(building-type-count-total monastery < "+data["BuildingCount14"]+")\n	(can-build monastery)\n=>\n	(build monastery)\n) \n(defrule\n	(goal activate yes)\n	(building-type-count-total castle < "+data["BuildingCount16"]+")\n	(can-build castle)\n=>\n	(build castle)\n) \n(defrule\n	(goal activate yes)\n	(building-type-count-total watch-tower-line < "+data["BuildingCount17"]+")\n	(can-build watch-tower-line)\n=>\n	(build watch-tower-line)\n) \n(defrule\n	(goal activate yes)\n	(building-type-count-total bombard-tower < "+data["BuildingCount18"]+")\n	(can-build bombard-tower)\n=>\n	(build bombard-tower)\n) \n"
+    finaltext += ";---Military and Research Buildings---\n(defrule\n    (goal activate yes)\n   (building-type-count-total barracks < "+data["BuildingCount7"]+")\n (can-build barracks)\n=>\n  (build barracks)\n) \n(defrule\n    (goal activate yes) \n  (building-type-count-total archery-range < "+data["BuildingCount8"]+")\n    (can-build archery-range)\n=>\n (build archery-range)\n) \n(defrule\n   (goal activate yes)\n   (building-type-count-total stable < "+data["BuildingCount9"]+")\n   (can-build stable)\n=>\n    (build stable)\n) \n(defrule\n  (goal activate yes)\n   (building-type-count-total siege-workshop < "+data["BuildingCount10"]+")\n  (can-build siege-workshop)\n=>\n    (build siege-workshop)\n) \n(defrule\n  (goal activate yes)\n   (building-type-count-total dock < "+data["BuildingCount15"]+")\n    (can-build dock)\n=>\n  (build dock)\n) \n(defrule\n    (goal activate yes)\n   (building-type-count-total university < "+data["BuildingCount13"]+")\n  (can-build university)\n=>\n    (build university)\n) \n(defrule\n  (goal activate yes)\n   (building-type-count-total blacksmith < "+data["BuildingCount11"]+")\n  (can-build blacksmith)\n=>\n    (build blacksmith)\n) \n(defrule\n  (goal activate yes)\n   (building-type-count-total market < "+data["BuildingCount12"]+")\n  (can-build market)\n=>\n    (build market)\n) \n(defrule\n  (goal activate yes)\n   (building-type-count-total monastery < "+data["BuildingCount14"]+")\n   (can-build monastery)\n=>\n (build monastery)\n) \n(defrule\n   (goal activate yes)\n   (building-type-count-total castle < "+data["BuildingCount16"]+")\n  (can-build castle)\n=>\n    (build castle)\n) \n(defrule\n  (goal activate yes)\n   (building-type-count-total watch-tower-line < "+data["BuildingCount17"]+")\n    (can-build watch-tower-line)\n=>\n  (build watch-tower-line)\n) \n(defrule\n    (goal activate yes)\n   (building-type-count-total bombard-tower < "+data["BuildingCount18"]+")\n   (can-build bombard-tower)\n=>\n (build bombard-tower)\n) \n"
     
-    finaltext += ";***Assault rules***\n;---Assault stats---\n(defrule\n	(goal activate yes)\n=>\n	(set-strategic-number sn-do-not-scale-for-difficulty-level no)\n	(set-strategic-number sn-wall-targeting-mode "+boolToYesNo(data["TargetWalls"])+")\n	(disable-self)\n)\n"
+    finaltext += ";***Assault rules***\n;---Assault stats---\n(defrule\n    (goal activate yes)\n=>\n   (set-strategic-number sn-do-not-scale-for-difficulty-level no)\n    (set-strategic-number sn-wall-targeting-mode "+boolToYesNo(data["TargetWalls"])+")\n    (disable-self)\n)\n"
     
-    finaltext += ";-----Offence-----\n;activate the first attack\n(defrule\n	(goal activate yes)\n=>\n	(enable-timer attack-timer "+str(data["AttackTimerValues1"])+")\n	(set-goal attack-goal standby)\n	(disable-self)\n)\n;first attack is activated and a new timer is enabled to already activate the next attack later on\n(defrule \n	(timer-triggered attack-timer)\n	(goal attack-goal standby)\n	(military-population >= 10)\n	(defend-soldier-count >= 10)\n	(not (town-under-attack))\n=>\n	(set-strategic-number sn-percent-enemy-sighted-response 60)\n	(set-strategic-number sn-enemy-sighted-response-distance 40) \n	(set-goal attack-goal offence) \n	(disable-timer attack-timer) \n	(enable-timer attack-timer "+str(data["AttackTimerValues2"])+");Interval between attacks\n)\n;the ai stops his attacks and resets everything until the next wave\n(defrule \n	;(goal attack-goal reset-attack) \n	(timer-triggered interval-timer)\n=> \n	(disable-timer interval-timer) \n	(set-goal attack-goal standby)\n) \n;the ai will keep his units at his base when on standby\n(defrule \n	(goal attack-goal standby)\n=> \n	(set-strategic-number sn-group-form-distance 25)\n	(set-strategic-number sn-maximum-attack-group-size 0) \n	(set-strategic-number sn-minimum-attack-group-size 0) \n	(set-strategic-number sn-number-attack-groups 0)\n	(set-strategic-number sn-number-boat-attack-groups 0)\n	(set-strategic-number sn-minimum-boat-attack-group-size 0)\n	(set-strategic-number sn-maximum-boat-attack-group-size 0)\n	(disable-timer interval-timer) \n	(enable-timer interval-timer 10)\n	;(set-goal attack-goal reset-attack)\n)\n;the ai gathers his troops and attacks the enemy with the amount stated below\n(defrule \n	(goal attack-goal offence) "
+    finaltext += ";-----Offence-----\n;activate the first attack\n(defrule\n    (goal activate yes)\n=>\n   (enable-timer attack-timer "+str(data["AttackTimerValues1"])+")\n   (set-goal attack-goal standby)\n    (disable-self)\n)\n;first attack is activated and a new timer is enabled to already activate the next attack later on\n(defrule \n  (timer-triggered attack-timer)\n    (goal attack-goal standby)\n    (military-population >= 10)\n   (defend-soldier-count >= 10)\n  (not (town-under-attack))\n=>\n (set-strategic-number sn-percent-enemy-sighted-response 60)\n   (set-strategic-number sn-enemy-sighted-response-distance 40) \n (set-goal attack-goal offence) \n   (disable-timer attack-timer) \n (enable-timer attack-timer "+str(data["AttackTimerValues2"])+");Interval between attacks\n)\n;the ai stops his attacks and resets everything until the next wave\n(defrule \n   ;(goal attack-goal reset-attack) \n (timer-triggered interval-timer)\n=> \n (disable-timer interval-timer) \n   (set-goal attack-goal standby)\n) \n;the ai will keep his units at his base when on standby\n(defrule \n    (goal attack-goal standby)\n=> \n   (set-strategic-number sn-group-form-distance 25)\n  (set-strategic-number sn-maximum-attack-group-size 0) \n    (set-strategic-number sn-minimum-attack-group-size 0) \n    (set-strategic-number sn-number-attack-groups 0)\n  (set-strategic-number sn-number-boat-attack-groups 0)\n (set-strategic-number sn-minimum-boat-attack-group-size 0)\n    (set-strategic-number sn-maximum-boat-attack-group-size 0)\n    (disable-timer interval-timer) \n   (enable-timer interval-timer 10)\n  ;(set-goal attack-goal reset-attack)\n)\n;the ai gathers his troops and attacks the enemy with the amount stated below\n(defrule \n (goal attack-goal offence) "
     
-    finaltext += ";Attacking - Groups\n=> \n	(set-strategic-number sn-group-form-distance 30)\n	(set-strategic-number sn-number-attack-groups "+str(data["AttackGroupValues1"])+")\n	(set-strategic-number sn-maximum-attack-group-size "+str(data["AttackGroupValues2"])+") \n	(set-strategic-number sn-minimum-attack-group-size "+str(data["AttackGroupValues2"])+") \n	(set-strategic-number sn-number-boat-attack-groups "+str(data["AttackGroupValues3"])+")\n	(set-strategic-number sn-minimum-boat-attack-group-size "+str(data["AttackGroupValues4"])+")\n	(set-strategic-number sn-maximum-boat-attack-group-size "+str(data["AttackGroupValues4"])+")\n	(set-goal attack-goal reset-attack)\n)\n"
+    finaltext += ";Attacking - Groups\n=> \n    (set-strategic-number sn-group-form-distance 30)\n  (set-strategic-number sn-number-attack-groups "+str(data["AttackGroupValues1"])+")\n    (set-strategic-number sn-maximum-attack-group-size "+str(data["AttackGroupValues2"])+") \n  (set-strategic-number sn-minimum-attack-group-size "+str(data["AttackGroupValues2"])+") \n  (set-strategic-number sn-number-boat-attack-groups "+str(data["AttackGroupValues3"])+")\n   (set-strategic-number sn-minimum-boat-attack-group-size "+str(data["AttackGroupValues4"])+")\n  (set-strategic-number sn-maximum-boat-attack-group-size "+str(data["AttackGroupValues4"])+")\n  (set-goal attack-goal reset-attack)\n)\n"
     
     finaltext += ";***Production2***\n;---Military---\n"
     
     for n in range(7):
-        if (data["UnitCount"+str(n+1)] != 0):
-            finaltext += "(defrule\n	(goal activate yes)\n	(unit-type-count-total unit"+str(n+1)+" < "+str(data["UnitCount"+str(n+1)])+")\n	(can-train unit"+str(n+1)+")\n=>\n	(train unit"+str(n+1)+")\n)\n"
+        if (data["UnitCount"+str(n+1)] != "0"):
+            finaltext += "(defrule\n    (goal activate yes)\n   (unit-type-count-total unit"+str(n+1)+" < "+str(data["UnitCount"+str(n+1)])+")\n    (can-train unit"+str(n+1)+")\n=>\n  (train unit"+str(n+1)+")\n)\n"
             
     for n in range(3):
-        if (data["UnitCount"+str(n+1)] != 0):
-            finaltext += "(defrule\n	(goal activate yes)\n	(unit-type-count-total siege"+str(n+1)+" < "+str(data["UnitCount"+str(n+8)])+")\n	(can-train siege"+str(n+1)+")\n=>\n	(train siege"+str(n+1)+")\n)\n"
+        if (data["UnitCount"+str(n+8)] != "0"):
+            finaltext += "(defrule\n    (goal activate yes)\n   (unit-type-count-total siege"+str(n+1)+" < "+str(data["UnitCount"+str(n+8)])+")\n   (can-train siege"+str(n+1)+")\n=>\n (train siege"+str(n+1)+")\n)\n"
             
     for n in range(3):
-        if (data["UnitCount"+str(n+1)] != 0):
-            finaltext += "(defrule\n	(goal activate yes)\n	(unit-type-count-total naval"+str(n+1)+" < "+str(data["UnitCount"+str(n+11)])+")\n	(can-train naval"+str(n+1)+")\n=>\n	(train naval"+str(n+1)+")\n)\n"
+        if (data["UnitCount"+str(n+11)] != "0"):
+            finaltext += "(defrule\n    (goal activate yes)\n   (unit-type-count-total naval"+str(n+1)+" < "+str(data["UnitCount"+str(n+11)])+")\n  (can-train naval"+str(n+1)+")\n=>\n (train naval"+str(n+1)+")\n)\n"
+
+    for n in range(3):
+        if (data["UnitCount"+str(n+14)] != "0"):
+            finaltext += "(defrule\n    (goal activate yes)\n   (unit-type-count-total editor"+str(n+1)+" < "+str(data["UnitCount"+str(n+14)])+")\n  (can-train editor"+str(n+1)+")\n=>\n (train editor"+str(n+1)+")\n)\n"
     
-    finaltext += ";***Market sales***\n(defrule\n	(goal activate yes)\n	(gold-amount >= 1500)\n	(wood-amount <= 200)\n	(commodity-buying-price wood <= 150)\n	(can-buy-commodity wood)\n	(goal use-market 1)\n=>\n	(buy-commodity wood)\n)\n(defrule\n	(goal activate yes)\n	(gold-amount >= 1500)\n	(food-amount <= 200)\n	(commodity-buying-price food <= 150)\n	(can-buy-commodity food)\n	(goal use-market 1)\n=>\n	(buy-commodity food)\n)\n(defrule\n	(goal activate yes)\n	(gold-amount >= 500)\n	(food-amount <= 100)\n	(can-buy-commodity food)\n	(goal use-market 1)\n=>\n	(buy-commodity food)\n)\n(defrule\n	(goal activate yes)\n	(gold-amount >= 2000)\n	(stone-amount <= 500)\n	(commodity-buying-price stone <= 100)\n	(can-buy-commodity stone)\n	(goal use-market 1)\n=>\n	(buy-commodity stone)\n)\n(defrule\n	(goal activate yes)\n	(gold-amount >= 1500)\n	(stone-amount <= 200)\n	(commodity-buying-price stone <= 200)\n	(can-buy-commodity stone)\n	(goal use-market 1)\n=>\n	(buy-commodity stone)\n)\n(defrule\n	(goal activate yes)\n	(wood-amount >= 2000)\n	(or\n		(gold-amount < 200)\n		(food-amount < 200)\n	)\n	(can-sell-commodity wood)\n	(goal use-market 1)\n=>\n	(sell-commodity wood)\n)\n(defrule\n	(goal activate yes)\n	(food-amount >= 2000)\n	(or\n		(gold-amount < 200)\n		(wood-amount < 200)\n	)\n	(can-sell-commodity food)\n	(goal use-market 1)\n=>\n	(sell-commodity food)\n)\n(defrule\n	(goal activate yes)\n	(stone-amount >= 1500)\n	(or\n		(or\n			(gold-amount < 200)\n			(wood-amount < 200)\n		)\n		(food-amount < 200)\n	)\n	(commodity-selling-price stone >= 70)\n	(can-sell-commodity stone)\n	(goal use-market 1)\n=>\n	(sell-commodity stone)\n)"
+    finaltext += ";***Market sales***\n(defrule\n   (goal activate yes)\n   (gold-amount >= 1500)\n (wood-amount <= 200)\n  (commodity-buying-price wood <= 150)\n  (can-buy-commodity wood)\n  (goal use-market 1)\n=>\n   (buy-commodity wood)\n)\n(defrule\n (goal activate yes)\n   (gold-amount >= 1500)\n (food-amount <= 200)\n  (commodity-buying-price food <= 150)\n  (can-buy-commodity food)\n  (goal use-market 1)\n=>\n   (buy-commodity food)\n)\n(defrule\n (goal activate yes)\n   (gold-amount >= 500)\n  (food-amount <= 100)\n  (can-buy-commodity food)\n  (goal use-market 1)\n=>\n   (buy-commodity food)\n)\n(defrule\n (goal activate yes)\n   (gold-amount >= 2000)\n (stone-amount <= 500)\n (commodity-buying-price stone <= 100)\n (can-buy-commodity stone)\n (goal use-market 1)\n=>\n   (buy-commodity stone)\n)\n(defrule\n    (goal activate yes)\n   (gold-amount >= 1500)\n (stone-amount <= 200)\n (commodity-buying-price stone <= 200)\n (can-buy-commodity stone)\n (goal use-market 1)\n=>\n   (buy-commodity stone)\n)\n(defrule\n    (goal activate yes)\n   (wood-amount >= 2000)\n (or\n       (gold-amount < 200)\n       (food-amount < 200)\n   )\n (can-sell-commodity wood)\n (goal use-market 1)\n=>\n   (sell-commodity wood)\n)\n(defrule\n    (goal activate yes)\n   (food-amount >= 2000)\n (or\n       (gold-amount < 200)\n       (wood-amount < 200)\n   )\n (can-sell-commodity food)\n (goal use-market 1)\n=>\n   (sell-commodity food)\n)\n(defrule\n    (goal activate yes)\n   (stone-amount >= 1500)\n    (or\n       (or\n           (gold-amount < 200)\n           (wood-amount < 200)\n       )\n     (food-amount < 200)\n   )\n (commodity-selling-price stone >= 70)\n (can-sell-commodity stone)\n    (goal use-market 1)\n=>\n   (sell-commodity stone)\n)"
+
+    finaltext += "\n\n;Cheat Resources (never run out of X)"
+    if (data["CheatFood"]):
+        finaltext += "\n(defrule\n    (food-amount < 200)\n=>\n    (cc-add-resource food 1000)\n)"
+    if (data["CheatWood"]):
+        finaltext += "\n(defrule\n    (wood-amount < 200)\n=>\n    (cc-add-resource wood 1000)\n)"
+    if (data["CheatGold"]):
+        finaltext += "\n(defrule\n    (gold-amount < 200)\n=>\n    (cc-add-resource gold 1000)\n)"
+    if (data["CheatStone"]):
+        finaltext += "\n(defrule\n    (stone-amount < 200)\n=>\n    (cc-add-resource stone 1000)\n)"
     
     ##print(finaltext) ## debug
     return finaltext
