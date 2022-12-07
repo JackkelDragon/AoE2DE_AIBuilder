@@ -1,5 +1,5 @@
 # AoE2DE_AIBuilder
-A python executable remake of the Forgotten Empires AoE2 AI Builder that creates AoE2DE-compatible AI files. These files are intended for campaigns, as they only have basic build and attack instructions. (Requires Python 2.7.x or Python 3.x to run.)
+A python executable remake of the Forgotten Empires AoE2 AI Builder that creates AoE2DE-compatible AI files. These files are intended for campaigns, as they only have basic build and attack instructions. (Requires Python 3.9.x or higher to run.)
 
 This program will create the ".ai" and ".per" files that are used for custom AI in AoE2. Place them in your install path's AI folder to allow the AI to appear in the Scenario Editor. In addition, be sure to include the additional library ".per" files in your AI folder to handle common behaviors.
 
@@ -9,7 +9,6 @@ The original FE version of this tool, with the ability to scale units built by d
 
 Known Potential Issues:
 - The AI Name entry does not check to see if the entered name is a valid filename.
-- The program was originally designed to be run with Python 2.7.x. It should now be compatible with Python 3.9.x onward, but this has not been tested extensively.
 
 v2 Update (December 2022) Notes:
 - Some bugs relating to unit counts should now be fixed.
