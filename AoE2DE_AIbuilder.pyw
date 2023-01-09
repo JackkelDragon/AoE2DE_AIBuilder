@@ -87,7 +87,7 @@ sn3.place(x=490,y=360)
 sn4 = Label(frame, text="Resource Gatherer Percentages\n( Food | Wood | Gold | Stone )", width=600, anchor="center", justify=CENTER)
 sn4.place(x=10,y=480,width=600)
 
-sn1cVal = BooleanVar(False)
+sn1cVal = BooleanVar()
 sn1c = Checkbutton(frame, variable=sn1cVal)
 sn1c.place(x=200,y=360,width=20)
 
@@ -284,7 +284,7 @@ bl18.place(x=350,y=1100)
 bl19 = Label(frame, text="Bombard Towers", justify = LEFT)
 bl19.place(x=350,y=1120)
 
-bl1cVal = BooleanVar(False)
+bl1cVal = BooleanVar()
 bl1c = Checkbutton(frame, variable=bl1cVal)
 bl1c.place(x=200,y=900,width=20)
 
@@ -320,7 +320,7 @@ atk6.place(x=10,y=1370)
 atk7 = Label(frame, text="Amount of units in water-based attack groups:", justify = LEFT)
 atk7.place(x=10,y=1400)
 
-atk1cVal = BooleanVar(False)
+atk1cVal = BooleanVar()
 atk1c = Checkbutton(frame, variable=atk1cVal)
 atk1c.place(x=200,y=1220,width=20)
 
@@ -380,7 +380,7 @@ upChecks = []
 upChecksVar = []
 
 for n in range(6):
-    upChecksVar.append(BooleanVar(False))
+    upChecksVar.append(BooleanVar())
     upChecks.append(Checkbutton(frame, variable=upChecksVar[n]))
     upChecks[n].place(x=200,y=1620+(n*20),width=20)
 
@@ -411,12 +411,12 @@ miscChecks = []
 miscChecksVar = []
 
 for n in range(3):
-    miscChecksVar.append(BooleanVar(False))
+    miscChecksVar.append(BooleanVar())
     miscChecks.append(Checkbutton(frame, variable=miscChecksVar[n]))
     miscChecks[n].place(x=200,y=1820+(n*20),width=20)
 
 for n in range(4):
-    miscChecksVar.append(BooleanVar(False))
+    miscChecksVar.append(BooleanVar())
     miscChecks.append(Checkbutton(frame, variable=miscChecksVar[n+3]))
     miscChecks[n+3].place(x=550,y=1820+(n*20),width=20)
 
